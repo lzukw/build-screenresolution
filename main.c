@@ -22,7 +22,7 @@
 #include "version.h"
 
 // Number of modes to list per line.
-#define MODES_PER_LINE 3
+#define MODES_PER_LINE 1
 
 // I have written an alternate list routine that spits out WAY more info
 // #define LIST_DEBUG 1
@@ -44,12 +44,14 @@ unsigned int parseStringConfig(const char *string, struct config *out);
 size_t bitDepth(CGDisplayModeRef mode);
 
 // http://stackoverflow.com/questions/3060121/core-foundation-equivalent-for-nslog/3062319#3062319
-void NSLog(CFStringRef format, ...);
+//void NSLog(CFStringRef format, ...);
 
 
 
 int main(int argc, const char *argv[]) {
     // http://developer.apple.com/library/IOs/#documentation/CoreFoundation/Conceptual/CFStrings/Articles/MutableStrings.html
+    
+    /*
     int i;
     CFMutableStringRef args = CFStringCreateMutable(NULL, 0);
     CFStringEncoding encoding = CFStringGetSystemEncoding();
@@ -61,6 +63,8 @@ int main(int argc, const char *argv[]) {
     }
     // This has security implications.  Will look at that later
     NSLog(CFSTR("%@"), args);
+    */
+
     unsigned int exitcode = 0;
 
     if (argc > 1) {
@@ -73,7 +77,8 @@ int main(int argc, const char *argv[]) {
 
         rc = CGGetActiveDisplayList(0, NULL, &activeDisplayCount);
         if (rc != kCGErrorSuccess) {
-            NSLog(CFSTR("%s"), "Error: failed to get list of active displays");
+            //NSLog(CFSTR("%s"), "Error: failed to get list of active displays");
+            fprintf(stderr, "Error: failed to get list of active displays");
             return 1;
         }
         // Allocate storage for the next CGGetActiveDisplayList call
