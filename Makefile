@@ -13,12 +13,13 @@ PREFIX=/usr/local
 ORIG_RES=1920x1200x32
 TEST_RES=800x600x32
 
-VERSION=1.6dev
+VERSION=1.7dev
 
 CC=clang
 LIPO=lipo
-PACKAGE_MAKER=/Developer/usr/bin/packagemaker
+PACKAGE_BUILD=/usr/bin/pkgbuild
 
+.PHONY: build
 build: screenresolution
 
 screenresolution: screenresolution32 screenresolution64
@@ -80,10 +81,8 @@ pkg: screenresolution
 	mkdir -p pkgroot/$(PREFIX)/bin
 	install -s -m 0755 screenresolution \
 		pkgroot/$(PREFIX)/bin
-	$(PACKAGE_MAKER) --root pkgroot/  --id com.johnhford.screenresolution \
-		--out "screenresolution-$(VERSION).pkg" --target 10.5 \
-		--title "screenresolution $(VERSION)" \
-		--version $(VERSION)
+	$(PACKAGE_BUILD) --root pkgroot/  --identifier com.johnhford.screenresolution \
+		--version $(VERSION) "screenresolution-$(VERSION).pkg" 
 	rm -f screenresolution.pkg
 	ln -s screenresolution-$(VERSION).pkg screenresolution.pkg
 

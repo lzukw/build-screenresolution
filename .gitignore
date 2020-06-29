@@ -1,0 +1,7 @@
+screenresolution32
+screenresolution64
+version.h
+dmgroot
+pkgroot
+*.pkg
+*.dmg
